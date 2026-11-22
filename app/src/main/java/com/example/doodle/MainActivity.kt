@@ -22,6 +22,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilledTonalButton
@@ -29,6 +30,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 val DarkGreen = Color(0xFF103C34)
 
@@ -39,6 +43,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             DoodleTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
@@ -65,7 +70,9 @@ fun HeaderBar() {
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
                         color = Color.White,
-                        fontFamily = FontFamily.Monospace
+                        fontFamily = FontFamily.Monospace,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 25.sp
                     )
                 }
     )
@@ -73,8 +80,24 @@ fun HeaderBar() {
 //Dropdown to select brush size
 @Composable
 fun DropdownButton(onClick: () -> Unit) {
-    FilledTonalButton (onClick = {onClick() }) {
-        Text("Choose Size")
+    Column (
+        modifier = Modifier.padding(3.dp, 5.dp)
+
+    ) {
+        FilledTonalButton(
+            onClick = { onClick() },
+            colors = ButtonDefaults.filledTonalButtonColors(
+                containerColor = DarkGreen
+            )
+        )
+        {
+            Text("Choose BrushSize",
+                fontSize = 20.sp,
+                fontFamily = FontFamily.Monospace,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
     }
 }
 @Composable
@@ -86,12 +109,23 @@ fun DropMenu() {
         onDismissRequest = { expanded = false }
     ) {
         DropdownMenuItem(
-            text = { Text("Option 1") },
-            onClick = { /* Do something... */ }
+            text = { Text("Small") },
+            onClick = { expanded = false }
         )
         DropdownMenuItem(
-            text = { Text("Option 2") },
-            onClick = { /* Do something... */ }
+            text = { Text("Medium") },
+            onClick = { expanded = false }
+        )
+        DropdownMenuItem(
+            text = { Text("Large") },
+            onClick = { expanded = false }
         )
 }
+}
+
+@Composable
+fun ResetButton(onClick: () -> Unit) {
+    FilledTonalButton(onClick = {onClick() }) {
+        Text("Reset")
     }
+}
