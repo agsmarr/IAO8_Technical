@@ -13,13 +13,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.doodle.ui.theme.DoodleTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextOverflow
@@ -39,21 +38,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.gestures.detectDragGestures
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.drawscope.Stroke
 
 val DarkGreen = Color(0xFF103C34)
 val lightGreen = Color(0xFFA0B7B3)
-var brushSize = "Small"
+var brushSize = 10f
 
-var isClear = true
-
+data class StrokePath(
+    val path: Path,
+    val width: Float
+    )
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             DoodleTheme {
+                val paths = remember { mutableStateListOf<StrokePath>() }
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
                     Column(
                         modifier = Modifier.padding(innerPadding)
                     ) {
@@ -66,16 +72,16 @@ class MainActivity : ComponentActivity() {
                             horizontalArrangement = Arrangement.SpaceEvenly
                         ) {
                             DropMenu()
-                            ResetButton(onClick = { isClear = true })
+                            ResetButton(onClick = { paths.clear() })
                         }
-                        Canvas()
+                        DrawCanvas(paths)
                     }
                 }
             }
         }
     }
 }
-
+//Header
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HeaderBar() {
@@ -97,7 +103,7 @@ fun HeaderBar() {
                 }
     )
 }
-//Dropdown button
+//Dropdown button to select brush size
 @Composable
 fun DropdownButton(onClick: () -> Unit) {
     Column (
@@ -111,7 +117,7 @@ fun DropdownButton(onClick: () -> Unit) {
             )
         )
         {
-            Text("Choose BrushSize",
+            Text("Choose Brush Size",
                 fontSize = 20.sp,
                 fontFamily = FontFamily.Monospace,
                 fontWeight = FontWeight.Bold,
@@ -120,6 +126,7 @@ fun DropdownButton(onClick: () -> Unit) {
         }
     }
 }
+//Dropdown feature for brush size button
 @Composable
 fun DropMenu() {
     Column (horizontalAlignment =
@@ -133,25 +140,35 @@ fun DropMenu() {
     ) {
         DropdownMenuItem(
             text = { Text("Small") },
-            onClick = { expanded = false; brushSize = "Small"}
+            onClick = { expanded = false; brushSize = 10f }
         )
         DropdownMenuItem(
             text = { Text("Medium") },
-            onClick = { expanded = false; brushSize = "Medium" }
+            onClick = { expanded = false; brushSize = 40f }
         )
         DropdownMenuItem(
             text = { Text("Large") },
-            onClick = { expanded = false; brushSize = "Large" }
+            onClick = { expanded = false; brushSize = 70f }
         )
 }
-    Text("Brush Size: $brushSize",
+        var size: String
+        if (brushSize == 10f) {
+            size = "Small"
+        }
+        else if (brushSize == 40f) {
+            size = "Medium"
+        }
+        else {
+            size = "Large"
+        }
+    Text("Brush Size: $size",
         fontSize = 20.sp,
         fontFamily = FontFamily.Monospace,
         fontWeight = FontWeight.ExtraBold
         )
 }
 }
-
+//Button to reset the canvas
 @Composable
 fun ResetButton(onClick: () -> Unit) {
     FilledTonalButton(onClick = {onClick() },
@@ -170,7 +187,8 @@ fun ResetButton(onClick: () -> Unit) {
 
 //Setup canvas to listen for drag events
 @Composable
-fun Canvas() {
+fun DrawCanvas(pathsRef: MutableList<StrokePath>) {
+    var currentPath by remember {mutableStateOf(StrokePath(Path(), 10f))}
     Column {
     Canvas(modifier =
         Modifier
@@ -178,6 +196,39 @@ fun Canvas() {
             .height(80.dp)
             .weight(1f)
             .background(Color.White)
-    ) { }
+            .pointerInput(Unit) {
+            detectDragGestures(
+                onDragStart = { offset: Offset ->
+                    val newPath = Path()
+                    newPath.moveTo(offset.x, offset.y)
+                    val newStrokePath = StrokePath(newPath, brushSize)
+                    currentPath = newStrokePath
+                },
+                onDrag = {change, dragAmount ->
+                    val updatedPath = Path()
+                    updatedPath.addPath(currentPath.path)
+
+                    updatedPath.lineTo(
+                        change.position.x,
+                        change.position.y
+                    )
+                    currentPath = StrokePath(updatedPath,currentPath.width)
+                },
+                onDragEnd = {
+                    pathsRef.add(currentPath)
+                    currentPath = StrokePath(Path(), 10f)
+                }
+            )
+            }
+    ) {
+        pathsRef.forEach { ref: StrokePath ->
+            drawPath(
+                ref.path,
+                Color.Black,
+                style = Stroke(width = ref.width)
+            )
+        }
+        drawPath(currentPath.path, Color.Black, style = Stroke(width = currentPath.width))
+    }
     }
 }
