@@ -13,3 +13,5 @@ https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/Fon
 https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/package-summary#(androidx.compose.ui.input.pointer.PointerInputScope).detectDragGestures(kotlin.Function1,kotlin.Function0,kotlin.Function0,kotlin.Function2)
 https://developer.android.com/develop/ui/compose/quick-guides/content/video/drawing-in-compose
 https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Path
+https://stackoverflow.com/questions/73468745/jetpack-compose-how-to-draw-a-path-line-like-this
+https://rahulrav.com/blog/path_tracing_compose.html
