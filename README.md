@@ -9,3 +9,7 @@ https://developer.android.com/develop/ui/compose/modifiers
 https://developer.android.com/develop/ui/compose/touch-input/pointer-input/understand-gestures
 https://developer.android.com/develop/ui/compose/phases
 https://developer.android.com/develop/ui/compose/text/style-text
+https://developer.android.com/reference/kotlin/androidx/compose/ui/text/font/FontWeight
+https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/package-summary#(androidx.compose.ui.input.pointer.PointerInputScope).detectDragGestures(kotlin.Function1,kotlin.Function0,kotlin.Function0,kotlin.Function2)
+https://developer.android.com/develop/ui/compose/quick-guides/content/video/drawing-in-compose
+https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Path
