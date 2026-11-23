@@ -18,3 +18,4 @@ https://rahulrav.com/blog/path_tracing_compose.html
 https://developer.android.com/develop/ui/compose/touch-input/pointer-input/drag-composables
 https://stackoverflow.com/questions/78731173/how-to-create-a-draggable-and-rotatable-box-in-jetpack-compose
 https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-list/
+https://kotlinlang.org/docs/control-flow.html#guard-conditions-in-when-expressions
