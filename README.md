@@ -3,3 +3,9 @@ https://developer.android.com/develop/ui/compose/lists
 https://developer.android.com/develop/ui/compose/components/menu
 https://developer.android.com/develop/ui/compose/text/fonts
 https://developer.android.com/develop/ui/compose/components/button
+https://codetrail.io/questions/kotlin/jetpack-compose-column-center-items
+https://developer.android.com/develop/ui/compose/graphics/draw/overview
+https://developer.android.com/develop/ui/compose/modifiers
+https://developer.android.com/develop/ui/compose/touch-input/pointer-input/understand-gestures
+https://developer.android.com/develop/ui/compose/phases
+https://developer.android.com/develop/ui/compose/text/style-text
