@@ -17,3 +17,4 @@ https://stackoverflow.com/questions/73468745/jetpack-compose-how-to-draw-a-path-
 https://rahulrav.com/blog/path_tracing_compose.html
 https://developer.android.com/develop/ui/compose/touch-input/pointer-input/drag-composables
 https://stackoverflow.com/questions/78731173/how-to-create-a-draggable-and-rotatable-box-in-jetpack-compose
+https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-list/
