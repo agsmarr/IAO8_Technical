@@ -1,3 +1,8 @@
+READ ME
+How to Run:
+Clone the repository: 
+
+
 References:
 https://developer.android.com/develop/ui/compose/lists
 https://developer.android.com/develop/ui/compose/components/menu
