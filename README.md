@@ -15,3 +15,4 @@ https://developer.android.com/develop/ui/compose/quick-guides/content/video/draw
 https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Path
 https://stackoverflow.com/questions/73468745/jetpack-compose-how-to-draw-a-path-line-like-this
 https://rahulrav.com/blog/path_tracing_compose.html
+https://developer.android.com/develop/ui/compose/touch-input/pointer-input/drag-composables
